@@ -2,9 +2,9 @@ package app.backend.presentacion.controlador;
 
 import app.aplicacion.servicios.ProductoService;
 import dominio.entidades.Producto;
-import java.util.List;
 
 public class ProductoController {
+
     private final ProductoService productoService;
 
     public ProductoController(ProductoService productoService) {
@@ -15,7 +15,7 @@ public class ProductoController {
         productoService.registrarProducto(producto);
     }
 
-    public List<Producto> listarProductos() {
-        return productoService.obtenerProductos();
+    public void registrarProducto(Producto producto) {
+        crearProducto(producto);
     }
 }

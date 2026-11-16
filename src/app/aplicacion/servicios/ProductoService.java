@@ -1,5 +1,6 @@
 package app.aplicacion.servicios;
 
+import java.util.List;
 import java.util.Objects;
 
 import dominio.entidades.Producto;
@@ -50,4 +51,5 @@ public class ProductoService implements RegistrarProductoPort {
             throw new IllegalArgumentException(campo + " debe ser un valor finito no negativo");
         }
     }
+
 }

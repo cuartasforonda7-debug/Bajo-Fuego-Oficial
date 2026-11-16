@@ -4,11 +4,11 @@ import app.aplicacion.servicios.PagoService;
 import app.aplicacion.servicios.ProductoService;
 import app.backend.infraestructura.adaptadores.PagoRepositoryAdapter;
 import app.backend.infraestructura.adaptadores.ProductoRepositoryAdapter;
+import app.backend.infraestructura.repositorio.PagoRepository;
 import app.backend.presentacion.controlador.PagoController;
 import app.backend.presentacion.controlador.ProductoController;
 
 public class Config {
-
 
     public ProductoService obtenerProductoService() {
         return new ProductoService(new ProductoRepositoryAdapter());
@@ -18,9 +18,8 @@ public class Config {
         return new ProductoController(obtenerProductoService());
     }
 
-    // PAGO - HU-16 TUYO (nuevo)
     public PagoService obtenerPagoService() {
-        return new PagoService(new PagoRepositoryAdapter());
+        return new PagoService(new PagoRepositoryAdapter(new PagoRepository()));
     }
 
     public PagoController obtenerPagoController() {
