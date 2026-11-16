@@ -1,9 +1,9 @@
 package app.backend.infraestructura.adaptadores;
 
-
 import app.backend.infraestructura.repositorio.PagoRepository;
 import dominio.entidades.Pago;
 import dominio.puertos.salida.PagoRepositoryPort;
+
 import java.util.List;
 
 public class PagoRepositoryAdapter implements PagoRepositoryPort {
@@ -26,6 +26,9 @@ public class PagoRepositoryAdapter implements PagoRepositoryPort {
 
     @Override
     public Pago buscarPorId(int idPago) {
-        return repository.buscarPorId(idPago);
+        return repository.listar().stream()
+                .filter(p -> p.getIdPago() == idPago)
+                .findFirst()
+                .orElse(null);
     }
 }
