@@ -1,23 +1,33 @@
 package app.aplicacion.servicios;
 
-import org.restaurante.entidades.pago;
-import org.restaurante.port.PagoRepositoryPort;
-import org.restaurante.port.RegistrarPagoUseCase;
+import dominio.entidades.Pago;
+import dominio.puertos.entrada.RegistrarPagoPort;
+import dominio.puertos.salida.PagoRepositoryPort;
 import java.util.List;
 
-public class RegistrarPagoService implements RegistrarPagoUseCase {
-    private final PagoRepositoryPort repository;
-    public RegistrarPagoService(PagoRepositoryPort repository){ this.repository = repository; }
+public class PagoService implements RegistrarPagoPort {
+
+    private final PagoRepositoryPort pagoRepositorio;
+
+    public PagoService(PagoRepositoryPort pagoRepositorio) {
+        this.pagoRepositorio = pagoRepositorio;
+    }
 
     @Override
-    public pago registrarPago(int pedidoId, double totalPedido, double dineroRecibido) {
-        if(dineroRecibido < totalPedido){
-            throw new RuntimeException("Dinero insuficiente. Faltan: " + (totalPedido - dineroRecibido));
+    public void registrarPago(Pago pago) {
+        if (pago.getMonto() <= 0) {
+            throw new IllegalArgumentException("El monto debe ser mayor a 0");
         }
-        double vueltas = dineroRecibido - totalPedido;
-        pago p = new pago(pedidoId, totalPedido, dineroRecibido, vueltas);
-        return repository.guardar(p);
+        pagoRepositorio.guardar(pago);
     }
+
     @Override
-    public List<pago> listarPagos(){ return repository.listarTodos(); }
+    public List<Pago> obtenerPagos() {
+        return pagoRepositorio.listar();
+    }
+
+    @Override
+    public Pago obtenerPagoPorId(int id) {
+        return pagoRepositorio.buscarPorId(id);
+    }
 }

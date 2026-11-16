@@ -4,7 +4,7 @@ import dominio.entidades.Pago;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PagoRepositorio {
+public class PagoRepository {
 
     private List<Pago> pagos = new ArrayList<>();
 
