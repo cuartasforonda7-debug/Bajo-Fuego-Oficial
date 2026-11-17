@@ -9,12 +9,13 @@ public class Pago {
     private String metodo;
     private String estado;
     private String comprobante;
+    private String metodoPago;
 
     public Pago() {
     }
 
     public Pago(int idPago, LocalDateTime fecha, double monto,
-                String metodo, String estado, String comprobante) {
+                String metodo, String estado, String comprobante ) {
 
         this.idPago = idPago;
         this.fecha = fecha;
@@ -22,6 +23,7 @@ public class Pago {
         this.metodo = metodo;
         this.estado = estado;
         this.comprobante = comprobante;
+
     }
 
     public int getIdPago() {

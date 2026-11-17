@@ -6,6 +6,7 @@ public class Aplicacion {
     public static void main(String[] args) {
     System.out.println("Probando HU-16 sin BD y sin pedidos...");
 
+
         try {
         Pago pago = new Pago();
         pago.setIdPago(1);
