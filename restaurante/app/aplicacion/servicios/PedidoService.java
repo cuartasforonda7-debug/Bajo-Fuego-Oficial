@@ -1,16 +1,21 @@
 package restaurante.app.aplicacion.servicios;
 
 import restaurante.app.dominio.entidades.*;
-import restaurante.app.infraestructura.repositorios.*;
+import restaurante.app.aplicacion.puertos.entrada.PedidoServicePort;
+import restaurante.app.dominio.puertos.salida.*;
 import java.sql.SQLException;
 import java.util.*;
 
-public class PedidoService {
-    private final PedidoRepository pedidoRepository = new PedidoRepository();
-    private final DetallePedidoRepository detalleRepository = new DetallePedidoRepository();
-    private final SeleccionMenuRepository seleccionRepository = new SeleccionMenuRepository();
-    private final DetallePedidoService detalleService = new DetallePedidoService();
-    private final SeleccionMenuService seleccionService = new SeleccionMenuService();
+public class PedidoService implements PedidoServicePort {
+    public PedidoService(PedidoRepositoryPort pedidoRepository, DetallePedidoRepositoryPort detalleRepository, SeleccionMenuRepositoryPort seleccionRepository, DetallePedidoServicePort detalleService, SeleccionMenuServicePort seleccionService) {
+        this.pedidoRepository=pedidoRepository; this.detalleRepository=detalleRepository; this.seleccionRepository=seleccionRepository;
+        this.detalleService=detalleService; this.seleccionService=seleccionService;
+    }
+    private final PedidoRepositoryPort pedidoRepository;
+    private final DetallePedidoRepositoryPort detalleRepository;
+    private final SeleccionMenuRepositoryPort seleccionRepository;
+    private final DetallePedidoServicePort detalleService;
+    private final SeleccionMenuServicePort seleccionService;
 
     public Pedido crear(Pedido pedido, List<DetallePedido> detalles, Map<Long,List<SeleccionMenu>> selecciones) {
         if (pedido == null) throw new NegocioException("Pedido requerido");

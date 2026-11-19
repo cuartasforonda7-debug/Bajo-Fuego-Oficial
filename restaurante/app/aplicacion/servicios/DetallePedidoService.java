@@ -1,12 +1,14 @@
 package restaurante.app.aplicacion.servicios;
 
 import restaurante.app.dominio.entidades.DetallePedido;
-import restaurante.app.infraestructura.repositorios.DetallePedidoRepository;
+import restaurante.app.aplicacion.puertos.entrada.DetallePedidoServicePort;
+import restaurante.app.dominio.puertos.salida.DetallePedidoRepositoryPort;
 import java.sql.SQLException;
 import java.util.*;
 
-public class DetallePedidoService {
-    private final DetallePedidoRepository repository = new DetallePedidoRepository();
+public class DetallePedidoService implements DetallePedidoServicePort {
+    public DetallePedidoService(DetallePedidoRepositoryPort repository) { this.repository = repository; }
+    private final DetallePedidoRepositoryPort repository;
     public void validar(DetallePedido d) {
         if(d==null)throw new NegocioException("Detalle requerido");
         boolean menu=d.getIdMenu()!=null&&d.getIdProducto()==null;

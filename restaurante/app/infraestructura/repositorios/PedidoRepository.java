@@ -5,7 +5,7 @@ import restaurante.app.infraestructura.basedatos.ConexionBaseDatos;
 import java.sql.*;
 import java.util.*;
 
-public class PedidoRepository {
+public class PedidoRepository implements restaurante.app.dominio.puertos.salida.PedidoRepositoryPort {
     public Pedido crear(Pedido p) throws SQLException {
         try (Connection c=ConexionBaseDatos.getConnection(); PreparedStatement ps=c.prepareStatement("INSERT INTO pedido(cliente,estado) VALUES(?,?)", Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1,p.getCliente()); ps.setString(2,p.getEstado()==null?"PENDIENTE":p.getEstado()); ps.executeUpdate();

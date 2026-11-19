@@ -2,17 +2,24 @@ package restaurante.app.aplicacion.servicios;
 
 import restaurante.app.dominio.entidades.*;
 import restaurante.app.infraestructura.basedatos.ConexionBaseDatos;
-import restaurante.app.infraestructura.repositorios.*;
+import restaurante.app.aplicacion.puertos.entrada.*;
+import restaurante.app.dominio.puertos.salida.*;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.*;
 
-public class VentaService {
-    private final VentaRepository ventaRepository=new VentaRepository();
-    private final DetalleVentaService detalleVentaService=new DetalleVentaService();
-    private final SeleccionMenuService seleccionMenuService=new SeleccionMenuService();
-    private final PedidoService pedidoService=new PedidoService();
-    private final DetallePedidoService detallePedidoService=new DetallePedidoService();
+public class VentaService implements VentaServicePort {
+    public VentaService(VentaRepositoryPort ventaRepository, DetalleVentaRepositoryPort detalleVentaRepository, SeleccionMenuRepositoryPort seleccionMenuRepository, PedidoServicePort pedidoService, DetallePedidoServicePort detallePedidoService, SeleccionMenuServicePort seleccionMenuService, DetalleVentaServicePort detalleVentaService) {
+        this.ventaRepository=ventaRepository; this.detalleVentaRepository=detalleVentaRepository; this.seleccionMenuRepository=seleccionMenuRepository;
+        this.pedidoService=pedidoService; this.detallePedidoService=detallePedidoService; this.seleccionMenuService=seleccionMenuService; this.detalleVentaService=detalleVentaService;
+    }
+    private final VentaRepositoryPort ventaRepository;
+    private final DetalleVentaRepositoryPort detalleVentaRepository;
+    private final SeleccionMenuRepositoryPort seleccionMenuRepository;
+    private final DetalleVentaServicePort detalleVentaService;
+    private final SeleccionMenuServicePort seleccionMenuService;
+    private final PedidoServicePort pedidoService;
+    private final DetallePedidoServicePort detallePedidoService;
 
     public Venta convertirPedidoAVenta(Long idPedido,String metodoPago,String estadoPago) {
         Pedido pedido=pedidoService.consultar(idPedido);
@@ -43,7 +50,7 @@ public class VentaService {
             venta.setTotal(total);try(PreparedStatement ps=c.prepareStatement("UPDATE venta SET total=? WHERE id=?")){ps.setBigDecimal(1,total);ps.setLong(2,venta.getId());ps.executeUpdate();}c.commit();return venta;
         }catch(NegocioException e){rollback(c);throw e;}catch(SQLException|RuntimeException e){rollback(c);throw new NegocioException("Error al crear venta directa: "+e.getMessage());}finally{close(c);} 
     }
-    public Venta listarConsultar(Long id){try{Venta v=ventaRepository.findById(id);if(v==null)throw new NegocioException("Venta no encontrada");List<DetalleVenta> detalles=new DetalleVentaRepository().consultarPorIdVenta(id);for(DetalleVenta d:detalles)d.setSelecciones(new SeleccionMenuRepository().consultarPorIdDetalleVenta(d.getId()));v.setDetalles(detalles);return v;}catch(SQLException e){throw new NegocioException(e.getMessage());}}
+    public Venta listarConsultar(Long id){try{Venta v=ventaRepository.findById(id);if(v==null)throw new NegocioException("Venta no encontrada");List<DetalleVenta> detalles=detalleVentaRepository.consultarPorIdVenta(id);for(DetalleVenta d:detalles)d.setSelecciones(seleccionMenuRepository.consultarPorIdDetalleVenta(d.getId()));v.setDetalles(detalles);return v;}catch(SQLException e){throw new NegocioException(e.getMessage());}}
     public List<Venta> listar(){try{return ventaRepository.listarTodas();}catch(SQLException e){throw new NegocioException(e.getMessage());}}
 
     private void insertarSeleccion(Connection c,SeleccionMenu s)throws SQLException{try(PreparedStatement ps=c.prepareStatement("INSERT INTO seleccion_menu(id_detalle_pedido,id_detalle_venta,id_menu,id_producto,descripcion,cantidad) VALUES(?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS)){setOptional(ps,1,s.getIdDetallePedido());setOptional(ps,2,s.getIdDetalleVenta());setOptional(ps,3,s.getIdMenu());setOptional(ps,4,s.getIdProducto());ps.setString(5,s.getDescripcion());ps.setInt(6,s.getCantidad()==null?1:s.getCantidad());ps.executeUpdate();try(ResultSet k=ps.getGeneratedKeys()){if(k.next())s.setId(k.getLong(1));}}}

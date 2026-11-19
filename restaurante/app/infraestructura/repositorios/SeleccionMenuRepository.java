@@ -5,7 +5,7 @@ import restaurante.app.infraestructura.basedatos.ConexionBaseDatos;
 import java.sql.*;
 import java.util.*;
 
-public class SeleccionMenuRepository {
+public class SeleccionMenuRepository implements restaurante.app.dominio.puertos.salida.SeleccionMenuRepositoryPort {
     public SeleccionMenu crear(SeleccionMenu s) throws SQLException { try(Connection c=ConexionBaseDatos.getConnection();PreparedStatement ps=c.prepareStatement("INSERT INTO seleccion_menu(id_detalle_pedido,id_detalle_venta,id_menu,id_producto,descripcion,cantidad) VALUES(?,?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS)){setId(ps,1,s.getIdDetallePedido());setId(ps,2,s.getIdDetalleVenta());setId(ps,3,s.getIdMenu());setId(ps,4,s.getIdProducto());ps.setString(5,s.getDescripcion());ps.setInt(6,s.getCantidad()==null?1:s.getCantidad());ps.executeUpdate();try(ResultSet k=ps.getGeneratedKeys()){if(k.next())s.setId(k.getLong(1));}}return s; }
     public List<SeleccionMenu> consultarPorIdDetallePedido(Long id) throws SQLException { return consultar("id_detalle_pedido",id); }
     public List<SeleccionMenu> consultarPorIdDetalleVenta(Long id) throws SQLException { return consultar("id_detalle_venta",id); }

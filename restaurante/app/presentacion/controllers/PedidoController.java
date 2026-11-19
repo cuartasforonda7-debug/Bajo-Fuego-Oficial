@@ -1,12 +1,14 @@
 package restaurante.app.presentacion.controllers;
 
 import com.sun.net.httpserver.HttpExchange;
-import restaurante.app.aplicacion.servicios.*;
+import restaurante.app.aplicacion.puertos.entrada.PedidoServicePort;
 import restaurante.app.dominio.entidades.Pedido;
+import restaurante.app.aplicacion.servicios.NegocioException;
 import java.io.IOException;
 
 public class PedidoController {
-    private final PedidoService service=new PedidoService();
+    private final PedidoServicePort service;
+    public PedidoController(PedidoServicePort service) { this.service=service; }
     public void handle(HttpExchange e)throws IOException{
         try{String path=e.getRequestURI().getPath();Long id=HttpSupport.idFromPath(e,"/pedidos");
             if(HttpSupport.method(e,"POST")&&path.equals("/pedidos")){Pedido p=HttpSupport.JSON.readValue(HttpSupport.body(e),Pedido.class);Pedido created=service.crear(p,p.getDetalles(),null);HttpSupport.json(e,201,created);}
