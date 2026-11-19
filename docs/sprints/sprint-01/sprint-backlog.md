@@ -34,6 +34,54 @@ Como usuario del sistema, quiero registrarme, para poder acceder a las funcional
 
 ---
 
+## HU-02 — Iniciar sesión
+
+**Responsable:** Juan José
+
+Como usuario registrado, quiero iniciar sesión, para acceder al sistema.
+
+### Tareas
+
+- [x] Definir el puerto de entrada para autenticación.
+- [x] Validar las credenciales del usuario.
+- [x] Permitir acceso si las credenciales son correctas.
+- [x] Notificar en caso de credenciales incorrectas o usuario inactivo.
+- [x] Probar el inicio de sesión.
+
+---
+
+## HU-03 — Gestionar empleados y roles
+
+**Responsable:** Juan José
+
+Como administrador, quiero gestionar empleados y sus roles, para organizar el acceso y las responsabilidades dentro del sistema.
+
+### Tareas
+
+- [x] Definir puertos de entrada y salida para roles y empleados.
+- [x] Implementar registro de empleados y validación de correo único.
+- [x] Implementar consulta de empleados.
+- [x] Implementar asignación de roles validando su existencia.
+- [x] Probar la gestión y asignación de roles.
+
+---
+
+## HU-04 — Controlar permisos según el rol
+
+**Responsable:** Juan José
+
+Como administrador, quiero controlar los permisos según el rol, para limitar el acceso a las funcionalidades correspondientes.
+
+### Tareas
+
+- [x] Definir catálogo de permisos granulares (`TipoPermiso`).
+- [x] Asociar roles a usuarios y permisos a roles.
+- [x] Implementar servicio de control de acceso y autorización.
+- [x] Denegar acceso a funciones no autorizadas lanzando excepciones de seguridad.
+- [x] Probar el control de accesos por roles.
+
+---
+
 ## HU-05 — Registrar productos
 
 **Responsable:** Cristian
@@ -88,14 +136,14 @@ Como empleado, quiero registrar el pago de una venta, para dejar constancia de l
 
 ### Tareas
 
-- [ ] Revisar la estructura del proyecto.
+- [x] Revisar la estructura del proyecto.
 - [ ] Mantener actualizado el Product Backlog.
-- [ ] Mantener actualizado el Sprint Backlog.
-- [ ] Trabajar mediante ramas de Git.
-- [ ] Realizar commits claros y relacionados con cambios concretos.
+- [x] Mantener actualizado el Sprint Backlog.
+- [x] Trabajar mediante ramas de Git.
+- [x] Realizar commits claros y relacionados con cambios concretos.
 - [ ] Integrar los cambios del equipo.
-- [ ] Probar el funcionamiento conjunto.
-- [ ] Registrar los avances del Sprint.
+- [x] Probar el funcionamiento conjunto.
+- [x] Registrar los avances del Sprint.
 
 ---
 
@@ -103,12 +151,12 @@ Como empleado, quiero registrar el pago de una venta, para dejar constancia de l
 
 Una historia se considerará completada cuando:
 
-- [ ] La funcionalidad esté implementada.
-- [ ] Los datos sean validados correctamente.
-- [ ] La funcionalidad haya sido probada.
-- [ ] Los cambios estén registrados mediante Git.
+- [x] La funcionalidad esté implementada.
+- [x] Los datos sean validados correctamente.
+- [x] La funcionalidad haya sido probada.
+- [x] Los cambios estén registrados mediante Git.
 - [ ] El código esté integrado correctamente.
-- [ ] La historia cumpla sus criterios de aceptación.
+- [x] La historia cumpla sus criterios de aceptación.
 
 ---
 
@@ -116,7 +164,10 @@ Una historia se considerará completada cuando:
 
 | Historia | Responsable | Estado |
 |---|---|---|
-| HU-01 | Juan José | To Do |
+| HU-01 | Juan José | Done |
+| HU-02 | Juan José | Done |
+| HU-03 | Juan José | Done |
+| HU-04 | Juan José | Done |
 | HU-05 | Cristian | Casi Done |
 | HU-11 | Darwin | To Do |
 | HU-16 | Ricardo | To Do |
