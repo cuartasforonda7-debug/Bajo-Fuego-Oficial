@@ -1,19 +1,21 @@
 package app.backend.presentacion.controlador;
 
-import java.util.Objects;
-
+import app.aplicacion.servicios.ProductoService;
 import dominio.entidades.Producto;
-import dominio.puertos.entrada.RegistrarProductoPort;
 
 public class ProductoController {
-    private final RegistrarProductoPort registrarProductoPort;
 
-    public ProductoController(RegistrarProductoPort registrarProductoPort) {
-        this.registrarProductoPort = Objects.requireNonNull(
-                registrarProductoPort, "El puerto de registro es obligatorio");
+    private final ProductoService productoService;
+
+    public ProductoController(ProductoService productoService) {
+        this.productoService = productoService;
+    }
+
+    public void crearProducto(Producto producto) {
+        productoService.registrarProducto(producto);
     }
 
     public void registrarProducto(Producto producto) {
-        registrarProductoPort.registrarProducto(producto);
+        crearProducto(producto);
     }
 }
