@@ -1,26 +1,39 @@
 package dominio.entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+import dominio.enums.TipoPermiso;
+
 public class Rol {
 
-    // ATRIBUTOS
-
+    // === ATRIBUTOS ===
     private int idRol;
     private String nombre;
     private String descripcion;
+    private List<TipoPermiso> permisos;
 
     // === CONSTRUCTOR VACIO ===
-
     public Rol() {
+        this.permisos = new ArrayList<>();
     }
 
-    // === CONSTRUCTOR COMPLETO ===
-    
+    // === CONSTRUCTOR BASICO ===
     public Rol(int idRol, String nombre, String descripcion) {
         this.idRol = idRol;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.permisos = new ArrayList<>();
     }
 
+    // === CONSTRUCTOR COMPLETO ===
+    public Rol(int idRol, String nombre, String descripcion, List<TipoPermiso> permisos) {
+        this.idRol = idRol;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.permisos = (permisos != null) ? new ArrayList<>(permisos) : new ArrayList<>();
+    }
+
+    // === GETTERS Y SETTERS ===
     public int getIdRol() {
         return idRol;
     }
@@ -45,4 +58,11 @@ public class Rol {
         this.descripcion = descripcion;
     }
 
+    public List<TipoPermiso> getPermisos() {
+        return permisos;
+    }
+
+    public void setPermisos(List<TipoPermiso> permisos) {
+        this.permisos = (permisos != null) ? new ArrayList<>(permisos) : new ArrayList<>();
+    }
 }

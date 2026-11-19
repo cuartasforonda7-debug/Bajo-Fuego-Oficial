@@ -14,7 +14,10 @@
                 "-d",
                 "out",
                 "src\\app\\backend\\Aplicacion.java",
-                "src\\app\\backend\\pruebas\\ProductoServicePrueba.java"
+                "src\\app\\backend\\pruebas\\ProductoServicePrueba.java",
+                "src\\app\\backend\\pruebas\\UsuarioServicePrueba.java",
+                "src\\app\\backend\\pruebas\\EmpleadoServicePrueba.java",
+                "src\\app\\backend\\pruebas\\AutorizacionServicePrueba.java"
             ],
             "group": {
                 "kind": "build",
@@ -31,6 +34,45 @@
                 "-cp",
                 "out;lib\\mssql-jdbc-13.6.0.jre11.jar",
                 "app.backend.pruebas.ProductoServicePrueba"
+            ],
+            "dependsOn": "Compilar proyecto Java",
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Ejecutar prueba Usuario (HU-01 y HU-02)",
+            "type": "process",
+            "command": "java",
+            "args": [
+                "-cp",
+                "out;lib\\mssql-jdbc-13.6.0.jre11.jar",
+                "app.backend.pruebas.UsuarioServicePrueba"
+            ],
+            "dependsOn": "Compilar proyecto Java",
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Ejecutar prueba Empleado (HU-03)",
+            "type": "process",
+            "command": "java",
+            "args": [
+                "-cp",
+                "out;lib\\mssql-jdbc-13.6.0.jre11.jar",
+                "app.backend.pruebas.EmpleadoServicePrueba"
+            ],
+            "dependsOn": "Compilar proyecto Java",
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Ejecutar prueba Autorizacion (HU-04)",
+            "type": "process",
+            "command": "java",
+            "args": [
+                "-cp",
+                "out;lib\\mssql-jdbc-13.6.0.jre11.jar",
+                "app.backend.pruebas.AutorizacionServicePrueba"
             ],
             "dependsOn": "Compilar proyecto Java",
             "problemMatcher": []

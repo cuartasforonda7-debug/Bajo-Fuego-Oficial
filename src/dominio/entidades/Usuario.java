@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 public class Usuario {
 
     // === ATRIBUTOS ===
-
     private int idUsuario;
     private String nombre;
     private String email;
@@ -13,29 +12,38 @@ public class Usuario {
     private String contrasena;
     private boolean estado;
     private LocalDateTime fechaRegistro;
-
+    private Rol rol;
 
     // === CONSTRUCTOR VACIO ===
-
     public Usuario() {
+    }
 
+    // === CONSTRUCTOR BASICO ===
+    public Usuario(int idUsuario, String nombre, String email, String telefono,
+                   String contrasena, boolean estado, LocalDateTime fechaRegistro) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.contrasena = contrasena;
+        this.estado = estado;
+        this.fechaRegistro = fechaRegistro;
     }
 
     // === CONSTRUCTOR COMPLETO ===
-
-
     public Usuario(int idUsuario, String nombre, String email, String telefono,
-                    String contrasena, boolean estado, LocalDateTime fechaRegistro) {
-
-            this.idUsuario = idUsuario;
-            this.nombre = nombre;
-            this.email = email;
-            this.telefono = telefono;
-            this.contrasena = contrasena;
-            this.estado = estado;
-            this.fechaRegistro = fechaRegistro;
+                   String contrasena, boolean estado, LocalDateTime fechaRegistro, Rol rol) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.email = email;
+        this.telefono = telefono;
+        this.contrasena = contrasena;
+        this.estado = estado;
+        this.fechaRegistro = fechaRegistro;
+        this.rol = rol;
     }
 
+    // === GETTERS Y SETTERS ===
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -92,6 +100,11 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
     }
 
-    
-}
+    public Rol getRol() {
+        return rol;
+    }
 
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+}
