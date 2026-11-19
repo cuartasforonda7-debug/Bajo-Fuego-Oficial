@@ -1,10 +1,10 @@
 package dominio.entidades;
+
 import java.time.LocalDateTime;
 
 public class Empleado extends Usuario {
 
     private LocalDateTime fechaIngreso;
-    private Rol rol;
 
     // === CONSTRUCTOR VACIO ===
     public Empleado() {
@@ -16,27 +16,16 @@ public class Empleado extends Usuario {
                     LocalDateTime fechaRegistro,
                     LocalDateTime fechaIngreso, Rol rol) {
 
-        super(idUsuario, nombre, email, telefono, contrasena, estado, fechaRegistro);
-
+        super(idUsuario, nombre, email, telefono, contrasena, estado, fechaRegistro, rol);
         this.fechaIngreso = fechaIngreso;
-        this.rol = rol;
     }
 
-    // Getters y Setters
-
+    // === GETTERS Y SETTERS ===
     public LocalDateTime getFechaIngreso() {
         return fechaIngreso;
     }
 
     public void setFechaIngreso(LocalDateTime fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
     }
 }
